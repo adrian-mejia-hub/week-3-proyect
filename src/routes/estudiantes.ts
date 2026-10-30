@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 
 const router = Router();
 
@@ -12,9 +12,35 @@ interface Student {
 const students: Student[] = [];
 let siguienteId = 1;
 
+// 3. Filtrado por query string
 // GET /api/estudiantes
+// GET /api/estudiantes?bootcamp=Frontend
 router.get('/', (req, res) => {
-    res.json(students);
+    const { bootcamp } = req.query;
+
+    if (bootcamp && typeof bootcamp === 'string') {
+        const filtrados = students.filter(
+            (s) => s.bootcamp.toLowerCase() === bootcamp.toLowerCase()
+        );
+        return res.json(filtrados);
+    }
+
+    return res.json(students);
+});
+
+// 4. Obtener un estudiante por ID
+// GET /api/estudiantes/:id
+router.get('/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const student = students.find((s) => s.id === id);
+
+    if (!student) {
+        return res.status(404).json({
+            message: '404 Not Found'
+        });
+    }
+
+    return res.json(student);
 });
 
 // POST /api/estudiantes
