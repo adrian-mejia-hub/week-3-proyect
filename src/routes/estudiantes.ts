@@ -16,6 +16,7 @@ let siguienteId = 1;
 // GET /api/estudiantes
 // GET /api/estudiantes?bootcamp=Frontend
 router.get('/', (req, res) => {
+    // #swagger.description = 'Obtiene la lista de todos los estudiantes o filtra por bootcamp'
     const { bootcamp } = req.query;
 
     if (bootcamp && typeof bootcamp === 'string') {
@@ -31,6 +32,7 @@ router.get('/', (req, res) => {
 // 4. Obtener un estudiante por ID
 // GET /api/estudiantes/:id
 router.get('/:id', (req, res) => {
+    // #swagger.description = 'Obtiene el detalle de un estudiante por su ID'
     const id = Number(req.params.id);
     const student = students.find((s) => s.id === id);
 
@@ -45,6 +47,7 @@ router.get('/:id', (req, res) => {
 
 // POST /api/estudiantes
 router.post('/', (req, res) => {
+    // #swagger.description = 'Crea un nuevo estudiante'
     const { name, email, bootcamp } = req.body;
     if (!email) {
         return res.status(400).json({ 
@@ -63,6 +66,7 @@ router.post('/', (req, res) => {
 
 // PUT /api/estudiantes/:id
 router.put('/:id', (req, res) => {
+    // #swagger.description = 'Actualiza la información de un estudiante existente'
     const id = Number(req.params.id);
     const student = students.find((s) => s.id === id);
     if (!student) {
@@ -79,6 +83,7 @@ router.put('/:id', (req, res) => {
 
 // DELETE /api/estudiantes/:id
 router.delete('/:id', (req, res) => {
+    // #swagger.description = 'Elimina un estudiante por su ID'
     const id = Number(req.params.id);
     const studentIndex = students.findIndex((s) => s.id === id);
     if (studentIndex === -1) {

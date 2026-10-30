@@ -1,10 +1,15 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import estudiantesRouter from './routes/estudiantes.js';
+import swaggerOutput from '../swagger_output.json' with { type: 'json' };
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+// Documentación con Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 //-----------------------------------------//
 app.get('/api/status', (req, res) => {
