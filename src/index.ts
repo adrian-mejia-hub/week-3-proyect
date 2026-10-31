@@ -2,9 +2,14 @@ import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import estudiantesRouter from './routes/estudiantes.js';
 import swaggerOutput from '../swagger_output.json' with { type: 'json' };
+import cors from 'cors';
+
+
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT ?? 3000;
+
+app.use(cors());
 
 app.use(express.json());
 
